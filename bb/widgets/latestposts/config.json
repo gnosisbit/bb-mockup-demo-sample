@@ -1,0 +1,24 @@
+{
+  "name": "latestposts",
+  "title": "Latest posts",
+  "version": "0.0.1",
+  "routes": [
+    "/", 
+    "/blog", 
+    "/blog/:any",  
+    "/blog/category/:any",
+    "/blog/tags/:any",
+    "/meetups", 
+    "/events",
+    "/about",
+    "/privacy",
+    "/devs"
+  ],
+  "description": "Latest posts",
+  "author": "Qawelesizwe Mlilo",
+  "authorEmail": "qawemlilo@gmail.com",
+  "position": "sidebar",
+  "order": 1,
+  "active": true,
+  "repo": "git://github.com/qawemlilo/latest-posts.git"
+}

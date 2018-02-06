@@ -1,0 +1,184 @@
+
+
+{{#extend "stylesheets"}}
+<style>
+.btn-default.btn-on.active{background-color: #5BB75B;color: white;}
+.btn-default.btn-off.active{background-color: #DA4F49;color: white;}
+
+.btn-default.btn-on-1.active{background-color: #006FFC;color: white;}
+.btn-default.btn-off-1.active{background-color: #DA4F49;color: white;}
+
+.btn-default.btn-on-2.active{background-color: #00D590;color: white;}
+.btn-default.btn-off-2.active{background-color: #A7A7A7;color: white;}
+
+.btn-default.btn-on-3.active{color: #5BB75B;font-weight:bolder;}
+.btn-default.btn-off-3.active{color: #DA4F49;font-weight:bolder;}
+
+.btn-default.btn-on-4.active{background-color: #006FFC;color: #5BB75B;}
+.btn-default.btn-off-4.active{background-color: #DA4F49;color: #DA4F49;}
+</style>
+{{/extend}}
+
+{{#extend "editor"}}
+<div class="col-sm-12" style="margin-top:15px;">
+
+  {{> flash}}
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <span class="glyphicon glyphicon-list-alt"></span> Edit Post
+      <a href="/admin/blog" class="close pull-right text-danger">&times;</a>
+    </div>
+
+    <div class="panel-body">
+    <form id="edit-form" action="/blog/edit" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="{{_csrf}}" />
+      <input type="hidden" name="id" value="{{post.id}}" />
+      <input type="hidden" name="catid" value="{{post.category_id}}" />
+      <input type="hidden" name="meta_title" value="{{post.meta_title}}" />
+
+      <div class="row">
+        <div class="col-sm-8 col-md-8">
+          <div class="form-group">
+            <label class="control-label" for="title">
+              Title <span class="text-danger">*</span>
+            </label>
+
+            <input class="form-control" type="text" name="title" id="title" value="{{post.title}}" />
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <div class="form-group">
+            <label class="control-label" for="title">&nbsp;</label>
+
+            <div style="text-align:right">
+              <button class="btn btn-success" type="submit">
+                <span class="glyphicon glyphicon-ok"></span> Update
+              </button>
+              <a href="/admin/blog" class="btn btn-default">
+                  <span class="glyphicon glyphicon-remove"></span> Close
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-sm-8 col-md-8">
+          <div class="form-group">
+            <label class="control-label" for="markdown">
+              Post <span class="text-danger">*</span>
+            </label>
+
+            <div id="epiceditor" style="height: 520px; padding: 0px;" class="form-control">
+              <textarea style="display:none" class="form-control" rows="15" name="markdown" id="markdown" required="">{{post.markdown}}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4 col-md-4">
+          <div class="form-group">
+            <label class="control-label" for="category">
+              Category <span class="text-danger">*</span>
+            </label>
+
+            <select name="category" class="form-control" id="category">
+              {{#selectedCat categories post.category_id}}{{/selectedCat}}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="tags">Tags</label>
+            <input class="form-control" type="text" name="tags" id="tags" value="{{#fillTags post.tags}}{{/fillTags}}" required="" />
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="meta_description">
+              Meta Description
+            </label>
+            <input class="form-control" type="text" name="meta_description" id="meta_description" value="{{post.meta_description}}" required="" />
+          </div>
+
+
+          <div class="form-group">
+            <input type='file' id="image_url" name="image_url" />
+
+            {{#if post.image}}
+              <img id="imagepreview" src="/uploads/{{post.image.filename}}" style="width: 120px; height: 120px" />
+            {{else}}
+              <p class="help-block">Upload an image to be used with your post</p>
+              <img id="imagepreview" src="#" style="display:none; width: 120px; height: 120px" />
+            {{/if}}
+          </div>
+
+          <div class="btn-group" data-toggle="buttons">
+            <label class="control-label" for="published">
+             Published
+            </label>
+            <br>
+            <label class="btn btn-default btn-on {{#if post.published}}active{{/if}}">
+            <input type="radio" value="1" name="published" {{#if post.published}}checked="checked"{{/if}}>Yes</label>
+            <label class="btn btn-default btn-off {{#if post.published}} {{else}}active{{/if}}">
+            <input type="radio" value="0" name="published" {{#if post.published}} {{else}}checked="checked"{{/if}}>No</label>
+          </div>
+
+          <div class="clearfix"></div><br>
+
+          <div class="clearfix btn-group" data-toggle="buttons">
+            <label class="control-label" for="featured">
+             Featured
+            </label>
+            <br>
+            <label class="btn btn-default btn-on {{#if post.featured}}active{{/if}}">
+            <input type="radio" value="1" name="published" {{#if post.featured}}checked="checked"{{/if}}>Yes</label>
+            <label class="btn btn-default btn-off {{#if post.featured}} {{else}}active{{/if}}">
+            <input type="radio" value="0" name="featured" {{#if post.featured}} {{else}}checked="checked"{{/if}}>No</label>
+          </div>
+        </div>
+
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+{{/extend}}
+
+
+{{#extend "footer"}}
+  {{> footer}}
+{{/extend}}
+
+
+{{#extend "scripts"}}
+<script src="/js/epiceditor/js/epiceditor.js"></script>
+<script>
+ (function ($) {
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          $('#imagepreview').attr('src', e.target.result).fadeIn();
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  var editor = new EpicEditor({
+    textarea: 'markdown',
+    basePath: '/js/epiceditor',
+    theme: {
+      base: '/themes/base/epiceditor.css',
+      preview: '/themes/preview/github.css',
+      editor: '/themes/editor/epic-light.css'
+    }
+  }).load();
+
+  $("#image_url").change(function(){
+    readURL(this);
+  });
+}(jQuery));
+</script>
+{{/extend}}

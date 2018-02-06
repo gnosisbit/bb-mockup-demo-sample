@@ -1,0 +1,19 @@
+{
+  "name": "tags",
+  "title": "Tags",
+  "version": "0.0.1",
+  "routes": [
+    "/blog", 
+    "/blog/:any", 
+    "/blog/category/:any", 
+    "/blog/tags/:any",
+    "/devs"
+  ],
+  "description": "Lists tags",
+  "author": "Qawelesizwe Mlilo",
+  "authorEmail": "qawemlilo@gmail.com",
+  "position": "sidebar",
+  "order": 5,
+  "active": true,
+  "repo": "git://github.com/qawemlilo/nodeza-tags.git"
+}

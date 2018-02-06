@@ -1,0 +1,121 @@
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Can't find a meetup group near you?</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="signup-form" action="/contact" method="POST"  >
+          <input type="hidden" name="_csrf" value="{{_csrf}}" />
+          <input type="hidden" name="_email" value="info@nodeza.co.za" />
+          <input type="hidden" name="subject" value="Search: Message from NodeZA meetups page" />
+          <div class="alert alert-info fade in" role="alert">
+            The Node.js community is still growing in South Africa , leave your details and we'll contact you when a meetup group starts near you.
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="name">Name:</label>
+            <div class="col-sm-7">
+              <input class="form-control" type="text" name="name" id="name" placeholder="Your name" required="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="email">
+              Email:
+            </label>
+            <div class="col-sm-7">
+              <input class="form-control" type="email" name="email" id="email" placeholder="Your email address" required="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="message">
+              Location
+            </label>
+            <div class="col-sm-7">
+              <textarea class="form-control" rows="5" name="message" id="message" placeholder="Your physical address" required=""></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-7">
+              <button class="btn btn-success" type="submit">
+                <span class="glyphicon glyphicon-check"></span> Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#extend "navigation"}}
+  {{> navigation}}
+{{/extend}}
+
+
+{{#extend "jumbotron"}}
+<div id="jumbotron" class="jumbotron meetups">
+  <div class="container">
+    <h1>Meetup groups</h1>
+    <p>Checkout Node.js meetup groups near you<p>
+  </div>
+</div>
+{{/extend}}
+
+<div class="col-sm-9 blog-main">
+
+  {{> flash}}
+
+  <div class="container-fluid">
+    <div class="row row-margin-bottom">
+      {{#each meetups}}
+        <div class="col-md-12 no-padding">
+          <div class="lib-panel">
+            <div class="row box-shadow zero-margin">
+              <div class="col-md-4 no-padding">
+                <a href="/meetups/{{slug}}">
+                  <img class="lib-img-show" {{#if image_url}}src="/img/320/{{image_url}}"{{else}}data-src="holder.js/232x155?bg=#dff0d8&fg=#3c763d"{{/if}} onerror="this.src='holder.js/232x155?bg=#dff0d8&fg=#3c763d';this.onerror=null" alt="{{title}}">
+                </a>
+              </div>
+              <div class="col-md-8">
+                <div class="lib-row lib-header">
+                  <a href="/meetups/{{slug}}">
+                    <h3 style="margin-top:0px;">{{title}}</h3>
+                  </a>
+                  <div class="lib-header-seperator"></div>
+                  <p class="blog-post-meta">
+                    <span class="glyphicon glyphicon-tag"></span> {{city}}
+                  </p>
+                </div>
+                <div class="lib-row lib-desc">
+                  {{short_desc}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="row">
+      <button class="btn btn-danger"  data-toggle="modal" data-target="#myModal">
+        Can't find a meetup near you?
+      </button>
+    </div>
+
+    {{> pagination}}
+  </div>
+</div>
+
+
+{{> sidebar}}
+
+
+{{#extend "footer"}}
+  {{> footer}}
+{{/extend}}

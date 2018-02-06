@@ -1,0 +1,120 @@
+{
+    "site": {
+        "siteName": "NodeZA",
+        "title": "Welcome to NodeZA, a Node.js information portal for developers in South Africa",
+        "description": "NodeZA is a platform that aims to make it easy to find information about Node.js, learn, and connect with other Node users in South Africa",
+        "keywords": "node, node.js, events, tutorials, jobs, companies, news, south africa, meetups",
+        "twitter_url": "http://twitter.com/nodeza",
+        "github_url": "http://github.com/nodeza",
+        "port": "3000",
+        "maxAge": "7",
+        "rssLimit": "10",
+        "email": "info@nodeza.co.za",
+        "baseUrl": "",
+        "activateCSRF": false,
+          "cache": true,
+        "maxAge": 7,
+        "port": 3000,
+        "sessionSecret": "secret_1516589047032",
+        "twitter_url": "http://twitter.com/nodeza",
+        "github_url": "http://github.com/nodeza",
+        "email": "info@nodeza.co.za",
+        "csrfWhitelist": [
+            "/this-url-will-bypass-csrf"
+        ],
+        "sessionSecret": "secret_1476389762324"
+    },
+    "db": {
+        "production": {
+            "client": "mysql",
+            "connection": {
+                "host": "localhost",
+                "database": "widget_cms",
+                "user": "root",
+                "password": "test",
+                "charset": "utf8"
+            },
+            "useNullAsDefault": true
+        },
+        "staging": {
+            "client": "mysql",
+            "connection": {
+                "host": "localhost",
+                "database": "widget_cms",
+                "user": "root",
+                "password": "test",
+                "charset": "utf8"
+            },
+            "useNullAsDefault": true
+        },
+        "development": {
+            "client": "mysql",
+            "connection": {
+                "host": "localhost",
+                "database": "widget_cms",
+                "user": "root",
+                "password": "test",
+                "charset": "utf8"
+            },
+            "useNullAsDefault": true
+        }
+    },
+    "mailgun": {
+        "login": "",
+        "password": ""
+    },
+    "github": {
+        "clientID": "455439633ad348f76e56",
+        "clientSecret": "dcb76a33a8f819c1a257c414ba404a1d4da3504f",
+        "callbackURL": "/auth/github/callback",
+        "passReqToCallback": true,
+        "authorizationURL": "https://github.com/login/oauth/authorize",
+        "tokenURL": "https://github.com/login/oauth/access_token",
+        "scopeSeparator": ",",
+        "customHeaders": {
+            "User-Agent": "passport-github"
+        }
+    },
+    "twitter": {
+        "consumerKey": "",
+        "consumerSecret": "",
+        "callbackURL": "/auth/twitter/callback",
+        "passReqToCallback": true
+    },
+    "google": {
+        "clientID": "120319527086-gmesiqv48vf9u4ja51fb6m92f1p2b8ko.apps.googleusercontent.com",
+        "clientSecret": "120319527086-gmesiqv48vf9u4ja51fb6m92f1p2b8ko@developer.gserviceaccount.com",
+        "callbackURL": "/auth/google/callback",
+        "passReqToCallback": true
+    },
+    "blog": {
+        "postsPerPage": "5",
+        "showAuthor": true,
+        "showTags": true,
+        "showDate": true,
+        "showComments": true,
+        "title": "NodeZA",
+        "showShareButtons": false,
+        "description": "NodeZA"
+    },
+    "events": {
+        "eventsPerPage": 2,
+        "showTags": true,
+        "showDate": true,
+        "showComments": true
+    },
+    "meetups": {
+        "meetupsPerPage": 10,
+        "showAuthor": true,
+        "showDate": true,
+        "showComments": true
+    },
+    "widget": {
+        "whitelist": [
+            "when",
+            "lodash",
+            "bluebird",
+            "./config.json"
+        ]
+    }
+}

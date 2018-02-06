@@ -1,0 +1,32 @@
+{
+  "name": "superadminmenu",
+  "title": "Super Administrator",
+  "version": "0.0.1",
+  "routes": [
+    "/admin",
+    "/admin/account",
+    "/admin/events",
+    "/admin/meetups",
+    "/admin/meetups/settings",
+    "/admin/blog",
+    "/admin/account/password",
+    "/admin/account/linked",
+    "/admin/settings/account",
+    "/admin/users",
+    "/admin/users/roles",
+    "/admin/blog/categories",
+    "/admin/blog/settings",
+    "/admin/routes",
+    "/admin/links",
+    "/admin/settings",
+    "/admin/settings/server",
+    "/admin/menus"
+  ],
+  "description": "Super Administrator",
+  "author": "Qawelesizwe Mlilo",
+  "authorEmail": "qawemlilo@gmail.com",
+  "position": "leftsidebar",
+  "order": 2,
+  "active": true,
+  "repo": "git://github.com/qawemlilo/superadminmenu.git"
+}

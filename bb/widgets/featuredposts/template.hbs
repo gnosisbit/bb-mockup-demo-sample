@@ -1,0 +1,19 @@
+
+{{#if collection}}
+  {{#each collection}}
+    <div class="blog-post">
+      <h1 class="blog-post-title">
+        <a href="/blog/{{slug}}">
+        	{{title}}
+        </a>
+      </h1>
+      <p class="blog-post-meta">
+       {{#parseDate published_at 'MMMM D, YYYY'}}{{/parseDate}}
+      </p>
+
+      {{#htmlSummary html}}{{/htmlSummary}}
+
+      <a href="/blog/{{slug}}" class="text-danger">read more &raquo;</a>
+    </div>
+  {{/each}}
+{{/if}}

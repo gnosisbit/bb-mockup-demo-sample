@@ -1,0 +1,66 @@
+
+
+
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <!--
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">NodeZA<sup class="text-danger"><i>beta</i></sup></a>
+    </div>
+    -->
+    <div class="navbar-collapse collapse">
+      <a role="button" class="btn btn-success" href="/dashboard/posts/new" style="margin-top:10px"><span class="glyphicon glyphicon-list-alt"></span> New Post</a>
+
+      <ul class="nav navbar-nav navbar-right">
+      {{#if user}}
+        <li class="{{#activeMenu 'admin' page}}{{/activeMenu}}">
+          <a href="/admin" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="{{#gravatar user.email '24'}}{{/gravatar}}" alt="{{user.name}}" class="img-circle"> {{user.name}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="/dashboard">Dashboard</a>
+            </li>
+            <li>
+              <a href="/admin/account">Account</a>
+            </li>
+
+            {{#ifCond user.role.name '==' 'Super Administrator'}}
+              <li><a href="/admin/users">Users</a></li>
+            {{/ifCond}}
+
+            <li class="divider"></li>
+            <li class="divider"></li>
+            <li><a href="/"><i class="fa fa-home"></i> Go to main site</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="/logout"><span class="glyphicon glyphicon-lock"></span> Logout</a>
+        </li>
+      {{else}}
+        <li class="{{#activeMenu 'login' page}}{{/activeMenu}}">
+          <a href="/login">Log In</a>
+        </li>
+        <li class="{{#activeMenu 'signup' page}}{{/activeMenu}}">
+          <a href="/signup">Sign Up</a>
+        </li>
+      {{/if}}
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+{{#if @WidgetCollection.abovecontent}}
+  {{#list @WidgetCollection.abovecontent page}}{{/list}}
+{{/if}}
+
+{{#if @WidgetCollection.content}}
+  {{#list @WidgetCollection.content page}}{{/list}}
+{{/if}}

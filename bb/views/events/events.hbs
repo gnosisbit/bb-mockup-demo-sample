@@ -1,0 +1,82 @@
+
+
+{{#extend "navigation"}}
+  {{> navigation}}
+{{/extend}}
+
+{{#extend "jumbotron"}}
+
+
+<div id="jumbotron" class="jumbotron events">
+  <div class="container">
+    <h1>Node.js Events</h1>
+
+    <p>Checkout upcoming Node.js events<p>
+  </div>
+</div>
+{{/extend}}
+
+<div class="col-sm-9 blog-main">
+  {{> flash}}
+
+  <div class="container-fluid">
+
+    {{#each myEvents}}
+    <div class="row">
+      <div class="panel panel-success">
+        <div class="panel-body">
+          <h2 class="blog-post-title" style="margin-top:0px;">
+            <a href="/events/{{slug}}">{{title}}</a>
+          </h2 style="margin-top:0px;">
+            <p class="blog-post-meta">
+              <span class="glyphicon glyphicon-map-marker"></span>
+              <a href="{{url}}" target="_blank">
+                map
+              </a> |
+              <span class="glyphicon glyphicon-tag"></span>
+              {{city}}
+              {{#eventLabel dt}}{{/eventLabel}}
+            </p>
+          <p>{{short_desc}}</p>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-md-6" style="text-align: left">
+              <span class="glyphicon glyphicon-calendar text-danger"></span>
+              {{#parseDate dt ''}}{{/parseDate}}
+            </div>
+            <div class="col-md-6" style="text-align: right">
+              <span class="glyphicon glyphicon-time text-danger"></span>
+              {{#myTime start_time}}{{/myTime}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+    {{> pagination}}
+  </div>
+</div>
+
+{{> sidebar}}
+
+
+{{#extend "footer"}}
+  {{> footer}}
+{{/extend}}
+
+
+{{#extend "scripts"}}
+<script>
+(function ($) {
+  $(function () {
+    // submit form when month and limit filters are changed
+    $('select.ddown').on('change', function () {
+      $(this).parent().submit();
+    });
+  })
+}(jQuery));
+</script>
+{{/extend}}

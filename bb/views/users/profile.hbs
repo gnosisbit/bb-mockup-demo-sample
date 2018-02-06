@@ -1,0 +1,163 @@
+
+
+{{#extend "navigation"}}
+  {{> navigation}}
+{{/extend}}
+
+
+
+<div class="container-fluid">
+
+  <div class="modal fade" id="contactform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Hi there..</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" action="/contact" method="POST">
+            <input type="hidden" name="_csrf" value="{{_csrf}}" />
+            <input type="hidden" name="to" value="{{profile.id}}" />
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="message">
+                Message:
+              </label>
+              <div class="col-sm-7">
+                <textarea class="form-control" rows="5" name="message" id="message" required=""></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-7">
+                <button class="btn btn-success" type="submit">
+                  <span class="glyphicon glyphicon-check"></span> Send
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+
+      <div class="thumbnail">
+        <img src="{{#gravatar profile.email '220'}}{{/gravatar}}" class="profile-pic img-responsive" alt="{{profile.name}}" title="{{profile.name}}">
+
+        <div class="caption">
+          {{#if profile.location}}
+          <p>
+            <span class="glyphicon glyphicon-map-marker text-danger"></span>
+            {{profile.location}}
+          </p>
+          {{/if}}
+          {{#if profile.website}}
+          <p>
+            <span class="glyphicon glyphicon-globe"></span>
+            <a href="{{#parseUrl profile.website}}{{/parseUrl}}" target="_blank">Website</a>
+          </p>
+          {{/if}}
+          {{#if profile.twitter_url}}
+          <p>
+            <span class="fa fa-twitter text-primary"></span>
+            <a href="{{#parseUrl profile.twitter_url}}{{/parseUrl}}" target="_blank">Twitter</a>
+          </p>
+          {{/if}}
+          {{#if profile.github_url}}
+          <p>
+            <span class="fa fa-github"></span>
+            <a href="{{#parseUrl profile.github_url}}{{/parseUrl}}" target="_blank">Github</a>
+          </p>
+          {{/if}}
+        </div>
+      </div>
+
+      <button class="btn btn-success btn-block" data-toggle="modal" data-target="#contactform">
+        <i class="fa fa-envelope"></i> Contact Me
+      </button>
+
+      {{#if @WidgetCollection.leftsidebar}}
+        {{#list @WidgetCollection.leftsidebar}}{{/list}}
+      {{/if}}
+    </div>
+
+    <div class="col-sm-9">
+
+      {{> flash}}
+
+      <h1 class="blog-post-title">{{profile.name}}</h1>
+
+
+      <div class="bs-callout">
+        {{#if profile.about}}
+          <p>{{{profile.about}}}</p>
+        {{else}}
+          <p class="text-center"><em>{{profile.name}}'s profile is empty</em></p>
+        {{/if}}
+      </div>
+
+
+      {{#if tweets}}
+      <div class="bs-callout bs-callout-info box">
+        <p class="text-center" style="font-size:24px"><span class="fa fa-twitter text-primary">&nbsp;</span></p>
+        <div class="info">
+        {{#each tweets}}
+          <p class="text-center">{{#richHTML text}}{{/richHTML}}</p>
+        {{/each}}
+        </div>
+        <div class="twitter-timeline"><a href="{{profile.twitter_url}}" target="_blank" width="500">Recent tweets by @ {{profile.name}}</a> &middot; <a href="#" class="tiny-tweet prev">&laquo; prev</a> | <a href="#" class="tiny-tweet next">next &raquo;</a></div>
+      </div>
+      {{/if}}
+
+    </div>
+  </div>
+</div>
+
+
+{{#extend "footer"}}
+  {{> footer}}
+{{/extend}}
+
+{{#extend "scripts"}}
+<script>
+  jQuery('.profile-pic').on('error', function () {
+    jQuery(this).attr('data-src', 'holder.js/300x200');
+  });
+
+  jQuery(function () {
+    jQuery('.box a.prev').on('click', function (e) {
+      e.preventDefault();
+
+      var visibleTweet = jQuery('.box .info > p:visible:first');
+
+      if (visibleTweet.prev('p').length) {
+        visibleTweet.hide().prev('p').show();
+      }
+      else {
+        visibleTweet.hide();
+        jQuery('.box .info > p:last').show();
+      }
+
+    });
+
+    jQuery('.box a.next').on('click', function (e) {
+      e.preventDefault();
+      var visibleTweet = jQuery('.box .info > p:visible:first');
+
+      if (visibleTweet.hide().next('p').length) {
+        visibleTweet.hide().next('p').show();
+      }
+      else {
+        console.log('is last child')
+        visibleTweet.hide();
+        jQuery('.box .info > p:first').show();
+      }
+    });
+  });
+</script>
+{{/extend}}

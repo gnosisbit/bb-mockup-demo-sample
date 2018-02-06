@@ -1,0 +1,70 @@
+
+
+{{#extend "navigation"}}
+  {{> navigation}}
+{{/extend}}
+
+
+{{#extend "jumbotron"}}
+<div id="jumbotron" class="jumbotron {{page}}">
+  <div class="container">
+    <h1>Learn, Share, &amp; Connect</h1>
+
+    <p>NodeZA is a Node.js information portal and social platform for developers in South Africa</p>
+
+    <ul class="list-inline">
+      {{#if user}}
+        <li>
+          <a href="/events" class="btn btn-success btn-lg btn-lg" role="button">
+            <span class="glyphicon glyphicon-calendar"></span> Checkout upcoming events
+          </a>
+        </li>
+        <li>
+          <a href="/meetups" class="btn btn-primary btn-lg" role="button">
+            <span class="glyphicon glyphicon-search"></span> Find meetups near you
+          </a>
+        </li>
+      {{else}}
+        <li>
+          <a href="/signup" class="btn btn-danger btn-lg" role="button">
+            <span class="glyphicon glyphicon-heart"></span> Join the community!
+          </a>
+        </li>
+        <li>
+          <a href="/events" class="btn btn-success btn-lg btn-lg" role="button">
+            <span class="glyphicon glyphicon-calendar"></span> Checkout upcoming events
+          </a>
+        </li>
+        <li>
+          <a href="/meetups" class="btn btn-primary btn-lg" role="button">
+            <span class="glyphicon glyphicon-search"></span> Find meetups near you
+          </a>
+        </li>
+      {{/if}}
+    </ul>
+  </div>
+</div>
+{{/extend}}
+
+
+{{#extend "abovecontent"}}
+  {{> flash}}
+
+  {{#if @WidgetCollection.abovecontent}}
+    {{#list @WidgetCollection.abovecontent 'home'}}{{/list}}
+  {{/if}}
+{{/extend}}
+
+<hr>
+
+<div class="col-sm-9 blog-main">
+  {{#if @WidgetCollection.content}}
+    {{#list @WidgetCollection.content 'home'}}{{/list}}
+  {{/if}}
+</div>
+
+{{> sidebar}}
+
+{{#extend "footer"}}
+  {{> footer}}
+{{/extend}}

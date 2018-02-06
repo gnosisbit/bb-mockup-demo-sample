@@ -1,0 +1,105 @@
+
+
+{{#extend "navigation"}}
+  {{> navigation}}
+{{/extend}}
+
+
+{{> leftsidebar}}
+
+<div class="col-sm-9 blog-main">
+  {{> flash}}
+
+  <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+    <li class="active">
+      <a href="/admin/events">
+        <span class="glyphicon glyphicon-calendar"></span> Events
+      </a>
+    </li>
+    <a role="button" href="/events/new" class="btn btn-danger pull-right">
+     <span class="glyphicon glyphicon-calendar"></span> Create new event
+    </a>
+  </ul>
+
+  <div class="container-fluid">
+
+    <div class="row" style="margin-top:5px;">
+    {{#ifCond myEvents.length '>' 0}}
+      <table class="table table-bordered table-striped table-condensed">
+        <thead>
+          <tr>
+            <th style="text-align:center" class="active">
+              ID
+            </th>
+            <th>
+              Title
+            </th>
+            <th>
+              Date
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+              <span class="glyphicon glyphicon-eye-open"></span>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each myEvents}}
+            <tr>
+              <td style="text-align:center" class="active">
+                {{id}}
+              </td>
+              <td>
+                <a href="/events/edit/{{id}}">{{title}}</a>
+                <a href="/events/{{slug}}" target="_blank">
+                  <small>
+                    <span class="glyphicon glyphicon-new-window text-danger"></span>
+                  </small>
+                </a>
+              </td>
+              <td>
+                {{#parseDate dt 'MMM D, YYYY'}}{{/parseDate}}
+              </td>
+              <td style="text-align:center">
+                <a href="/events/edit/{{id}}" data-toggle="tooltip" data-placement="top" title="Edit">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+              </td>
+              <td style="text-align:center">
+                <a href="/events/delete/{{id}}" data-toggle="tooltip" data-placement="top" onclick="return confirm('Are you sure you want to delete that post?')" class="text-danger" title="Delete">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
+              </td>
+              <td style="text-align:center">
+                {{views}}
+              </td>
+            </tr>
+          {{/each}}
+
+        </tbody>
+      </table>
+      {{/ifCond}}
+      {{#ifCond myEvents.length '==' 0}}
+        <div class="alert alert-info fade in" role="alert">
+          <h4>Welcome to your Events admin</h4>
+          <p>Hello {{user.name}}, you can share upcoming events with Node.js community here.</p>
+          <p>
+            <a class="btn btn-danger" href="/events/new">Create a new event</a>
+          </p>
+        </div>
+      {{/ifCond}}
+    </div>
+
+    {{> pagination}}
+
+  </div>
+</div>
+
+
+{{#extend "footer"}}
+  {{> footer}}
+{{/extend}}

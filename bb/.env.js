@@ -1,0 +1,17 @@
+
+  module.exports = {
+    MAILGUN_USER: '',
+    MAILGUN_PASSWORD: '',
+    MAILGUN_KEY: '',
+    MAILGUN_EMAIL: '',
+    MAILGUN_NEWSLETTER: '',
+    MAILGUN_DOMAIN: '',
+    GITHUB_CLIENTID: '',
+    GITHUB_SECRET: '',
+    TWITTER_KEY: '',
+    TWITTER_SECRET: '',
+    TWITTER_TOKEN_KEY: '',
+    TWITTER_TOKEN_SECRET: '',
+    GOOGLE_CLIENTID: '',
+    GOOGLE_SECRET: ''
+  };

@@ -1,0 +1,109 @@
+
+
+{{#extend "navigation"}}
+  {{> navigation}}
+{{/extend}}
+
+
+{{> leftsidebar}}
+
+<div class="col-sm-9 blog-main">
+
+  {{> flash}}
+
+  <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+    <li>
+      <a href="/admin/menus">
+        <span class="glyphicon glyphicon-folder-open"></span> Menus
+      </a>
+    </li>
+    <li>
+      <a href="/admin/links">
+        <span class="glyphicon glyphicon-link"></span> Links
+      </a>
+    </li>
+    <li class="active">
+      <a href="/admin/routes">
+        <span class="glyphicon glyphicon-road"></span> Routes
+      </a>
+    </li>
+    <a role="button" href="/routes/new" class="btn btn-danger pull-right">
+      <span class="glyphicon glyphicon-link"></span> New Route
+    </a>
+  </ul>
+
+  <div class="container-fluid">
+    <div class="row" style="margin-top:5px;">
+      <table class="table table-bordered table-striped table-condensed">
+        <thead>
+          <tr>
+            <th style="text-align:center" class="active">
+              http
+            </th>
+            <th>
+              Route
+            </th>
+            <th>
+              Controller
+            </th>
+            <th>
+              Method
+            </th>
+            <th>
+              Access
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          {{#each routes}}
+            <tr>
+              <td style="text-align:center" class="active">
+                <code>{{http_method}}</code>
+              </td>
+              <td>
+                <a href="/routes/edit/{{id}}">{{path}}</a>
+              </td>
+              <td>
+                <code>{{controller_name}}</code>
+              </td>
+              <td>
+                <code>{{controller_method}}</code>
+              </td>
+              <td>
+                {{#if role.name}}
+                  {{role.name}}
+                {{else}}
+                  Public
+                {{/if}}
+              </td>
+              <td style="text-align:center">
+                <a href="/routes/edit/{{id}}" title="Edit">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </a> 
+              </td>
+              <td style="text-align:center">
+                <a href="/routes/delete/{{id}}" onclick="return confirm('Are you sure you want to delete that post?')" class="text-danger delete-post" title="Delete">
+                  <span class="glyphicon glyphicon-trash"></span> 
+                </a> 
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  
+    {{> pagination}}
+  
+  </div>
+</div>
+
+
+{{#extend "footer"}}
+  {{> footer}}
+{{/extend}}
+

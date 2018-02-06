@@ -1,0 +1,127 @@
+
+
+{{#extend "navigation"}}
+  {{> navigation}}
+{{/extend}}
+
+
+{{> leftsidebar}}
+
+<div class="col-sm-9 blog-main">
+
+  {{> flash}}
+
+  <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+    <li class="active">
+      <a href="/admin/blog">
+        <span class="glyphicon glyphicon-list-alt"></span> Posts
+      </a>
+    </li>
+    {{#ifCond user.role.name '==' 'Super Administrator'}}
+    <li>
+      <a href="/admin/blog/categories">
+        <span class="glyphicon glyphicon-align-justify"></span> Categories
+      </a>
+    </li>
+    <li>
+      <a href="/admin/blog/settings">
+        <span class="glyphicon glyphicon-cog"></span> Settings
+      </a>
+    </li>
+    {{/ifCond}}
+    <a role="button" href="/blog/new" class="btn btn-danger pull-right">
+      <span class="glyphicon glyphicon-list-alt"></span> New Post
+    </a>
+  </ul>
+
+  <div class="container-fluid">
+    <div class="row" style="margin-top:5px;">
+    {{#ifCond posts.length '>' 0}}
+      <table class="table table-bordered table-striped table-condensed">
+        <thead>
+          <tr>
+            <th style="text-align:center" class="active">
+              ID
+            </th>
+            <th>
+              Title
+            </th>
+            <th>
+              Category
+            </th>
+            <th>
+              Featured
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+              <span class="glyphicon glyphicon-eye-open"></span>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each posts}}
+            <tr>
+              <td style="text-align:center" class="active">
+               {{id}}
+              </td>
+              <td>
+                <a href="/blog/edit/{{id}}">{{title}}</a>
+                <a href="/blog/{{slug}}" target="_blank" data-toggle="tooltip" data-placement="top" title="View Post" class="text-danger">
+                  <small><span class="glyphicon glyphicon-new-window"></span></small>
+                </a>
+              </td>
+              <td>
+                {{category.name}}
+              </td>
+              <td style="text-align:center">
+                {{#isFeatured featured id}}{{/isFeatured}}
+              </td>
+              <td style="text-align:center">
+                <a href="/blog/edit/{{id}}" data-toggle="tooltip" data-placement="top" title="Edit">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+              </td>
+              <td style="text-align:center">
+                {{#isPublished published id}}{{/isPublished}}
+              </td>
+              <td style="text-align:center">
+                <a href="/blog/delete/{{id}}" data-toggle="tooltip" data-placement="top" onclick="return confirm('Are you sure you want to delete that post?')" class="text-danger delete-post" title="Delete">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
+              </td>
+              <td style="text-align:center">
+                {{views}}
+              </td>
+            </tr>
+          {{/each}}
+
+        </tbody>
+      </table>
+      {{/ifCond}}
+
+      {{#ifCond posts.length '==' 0}}
+        <div class="alert alert-info fade in" role="alert">
+          <h4>Welcome to your blog admin</h4>
+          <p>Hi there {{user.name}}, looks like you haven't posted any content yet. We would love to see you sharing some of your Node.js knowledge with the community.</p>
+          <p>
+            <a class="btn btn-danger" href="/blog/new">Create your first post</a>
+          </p>
+        </div>
+      {{/ifCond}}
+    </div>
+
+    {{> pagination}}
+
+  </div>
+</div>
+
+
+{{#extend "footer"}}
+  {{> footer}}
+{{/extend}}
